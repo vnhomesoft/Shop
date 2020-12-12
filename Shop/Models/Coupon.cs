@@ -12,23 +12,22 @@ namespace Shop.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Coupon
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
+        public Coupon()
         {
-            this.OrderDetails = new HashSet<OrderDetail>();
-            this.Prices = new HashSet<Price>();
+            this.Orders = new HashSet<Order>();
         }
     
         public long Id { get; set; }
-        public string Name { get; set; }
+        public string CouponCode { get; set; }
+        public System.DateTime ApplyDate { get; set; }
+        public System.DateTime ExpireDate { get; set; }
+        public float DiscountPercent { get; set; }
         public long CategoryId { get; set; }
     
-        public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Price> Prices { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

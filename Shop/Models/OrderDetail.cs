@@ -12,13 +12,16 @@ namespace Shop.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class OrderDetail
     {
         public long Id { get; set; }
-        public string DisplayName { get; set; }
-        public string Roles { get; set; }
-        public long AccountId { get; set; }
+        public long OrderId { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
+        public decimal Discount { get; set; }
+        public long ProductId { get; set; }
     
-        public virtual Account Account { get; set; }
+        public virtual Order Order { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

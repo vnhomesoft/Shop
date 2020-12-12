@@ -12,13 +12,12 @@ namespace Shop.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Price
     {
-        public long Id { get; set; }
-        public string DisplayName { get; set; }
-        public string Roles { get; set; }
-        public long AccountId { get; set; }
+        public long ProductId { get; set; }
+        public decimal Value { get; set; }
+        public System.DateTime ApplyDate { get; set; }
     
-        public virtual Account Account { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

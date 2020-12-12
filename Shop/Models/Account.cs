@@ -12,23 +12,25 @@ namespace Shop.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Account
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
+        public Account()
         {
-            this.OrderDetails = new HashSet<OrderDetail>();
-            this.Prices = new HashSet<Price>();
+            this.Customers = new HashSet<Customer>();
+            this.Users = new HashSet<User>();
         }
     
         public long Id { get; set; }
-        public string Name { get; set; }
-        public long CategoryId { get; set; }
+        public string LoginName { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public short Locked { get; set; }
+        public string ActivationCode { get; set; }
     
-        public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Price> Prices { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }
