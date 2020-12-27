@@ -10,107 +10,116 @@ using Shop.Models;
 
 namespace Shop.Areas.Admin.Controllers
 {
-    public class ShopsController : Controller
+    public class OrderDetailsController : Controller
     {
         private ShopEntities db = new ShopEntities();
 
-        // GET: Admin/Shops
+        // GET: Admin/OrderDetails
         public ActionResult Index()
         {
-            return View(db.Shops.ToList());
+            var orderDetails = db.OrderDetails.Include(o => o.Order).Include(o => o.Product);
+            return View(orderDetails.ToList());
         }
 
-        // GET: Admin/Shops/Details/5
+        // GET: Admin/OrderDetails/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.Shop shop = db.Shops.Find(id);
-            if (shop == null)
+            OrderDetail orderDetail = db.OrderDetails.Find(id);
+            if (orderDetail == null)
             {
                 return HttpNotFound();
             }
-            return View(shop);
+            return View(orderDetail);
         }
 
-        // GET: Admin/Shops/Create
+        // GET: Admin/OrderDetails/Create
         public ActionResult Create()
         {
+            ViewBag.OrderId = new SelectList(db.Orders, "Id", "Id");
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name");
             return View();
         }
 
-        // POST: Admin/Shops/Create
+        // POST: Admin/OrderDetails/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Address")] Models.Shop shop)
+        public ActionResult Create([Bind(Include = "Id,OrderId,Price,Quantity,Discount,ProductId")] OrderDetail orderDetail)
         {
             if (ModelState.IsValid)
             {
-                db.Shops.Add(shop);
+                db.OrderDetails.Add(orderDetail);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(shop);
+            ViewBag.OrderId = new SelectList(db.Orders, "Id", "Id", orderDetail.OrderId);
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", orderDetail.ProductId);
+            return View(orderDetail);
         }
 
-        // GET: Admin/Shops/Edit/5
+        // GET: Admin/OrderDetails/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.Shop shop = db.Shops.Find(id);
-            if (shop == null)
+            OrderDetail orderDetail = db.OrderDetails.Find(id);
+            if (orderDetail == null)
             {
                 return HttpNotFound();
             }
-            return View(shop);
+            ViewBag.OrderId = new SelectList(db.Orders, "Id", "Id", orderDetail.OrderId);
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", orderDetail.ProductId);
+            return View(orderDetail);
         }
 
-        // POST: Admin/Shops/Edit/5
+        // POST: Admin/OrderDetails/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Address")] Models.Shop shop)
+        public ActionResult Edit([Bind(Include = "Id,OrderId,Price,Quantity,Discount,ProductId")] OrderDetail orderDetail)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(shop).State = EntityState.Modified;
+                db.Entry(orderDetail).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(shop);
+            ViewBag.OrderId = new SelectList(db.Orders, "Id", "Id", orderDetail.OrderId);
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", orderDetail.ProductId);
+            return View(orderDetail);
         }
 
-        // GET: Admin/Shops/Delete/5
+        // GET: Admin/OrderDetails/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.Shop shop = db.Shops.Find(id);
-            if (shop == null)
+            OrderDetail orderDetail = db.OrderDetails.Find(id);
+            if (orderDetail == null)
             {
                 return HttpNotFound();
             }
-            return View(shop);
+            return View(orderDetail);
         }
 
-        // POST: Admin/Shops/Delete/5
+        // POST: Admin/OrderDetails/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Models.Shop shop = db.Shops.Find(id);
-            db.Shops.Remove(shop);
+            OrderDetail orderDetail = db.OrderDetails.Find(id);
+            db.OrderDetails.Remove(orderDetail);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

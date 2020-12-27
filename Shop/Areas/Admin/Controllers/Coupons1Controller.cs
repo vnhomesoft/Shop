@@ -10,107 +10,107 @@ using Shop.Models;
 
 namespace Shop.Areas.Admin.Controllers
 {
-    public class ShopsController : Controller
+    public class Coupons1Controller : Controller
     {
         private ShopEntities db = new ShopEntities();
 
-        // GET: Admin/Shops
+        // GET: Admin/Coupons1
         public ActionResult Index()
         {
-            return View(db.Shops.ToList());
+            return View(db.Coupons.ToList());
         }
 
-        // GET: Admin/Shops/Details/5
+        // GET: Admin/Coupons1/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.Shop shop = db.Shops.Find(id);
-            if (shop == null)
+            Coupon coupon = db.Coupons.Find(id);
+            if (coupon == null)
             {
                 return HttpNotFound();
             }
-            return View(shop);
+            return View(coupon);
         }
 
-        // GET: Admin/Shops/Create
+        // GET: Admin/Coupons1/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Shops/Create
+        // POST: Admin/Coupons1/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Address")] Models.Shop shop)
+        public ActionResult Create([Bind(Include = "Id,CouponCode,ApplyDate,ExpireDate,DiscountPercent,CategoryId")] Coupon coupon)
         {
             if (ModelState.IsValid)
             {
-                db.Shops.Add(shop);
+                db.Coupons.Add(coupon);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(shop);
+            return View(coupon);
         }
 
-        // GET: Admin/Shops/Edit/5
+        // GET: Admin/Coupons1/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.Shop shop = db.Shops.Find(id);
-            if (shop == null)
+            Coupon coupon = db.Coupons.Find(id);
+            if (coupon == null)
             {
                 return HttpNotFound();
             }
-            return View(shop);
+            return View(coupon);
         }
 
-        // POST: Admin/Shops/Edit/5
+        // POST: Admin/Coupons1/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Address")] Models.Shop shop)
+        public ActionResult Edit([Bind(Include = "Id,CouponCode,ApplyDate,ExpireDate,DiscountPercent,CategoryId")] Coupon coupon)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(shop).State = EntityState.Modified;
+                db.Entry(coupon).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(shop);
+            return View(coupon);
         }
 
-        // GET: Admin/Shops/Delete/5
+        // GET: Admin/Coupons1/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.Shop shop = db.Shops.Find(id);
-            if (shop == null)
+            Coupon coupon = db.Coupons.Find(id);
+            if (coupon == null)
             {
                 return HttpNotFound();
             }
-            return View(shop);
+            return View(coupon);
         }
 
-        // POST: Admin/Shops/Delete/5
+        // POST: Admin/Coupons1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Models.Shop shop = db.Shops.Find(id);
-            db.Shops.Remove(shop);
+            Coupon coupon = db.Coupons.Find(id);
+            db.Coupons.Remove(coupon);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -10,107 +10,112 @@ using Shop.Models;
 
 namespace Shop.Areas.Admin.Controllers
 {
-    public class ShopsController : Controller
+    public class CustomersController : Controller
     {
         private ShopEntities db = new ShopEntities();
 
-        // GET: Admin/Shops
+        // GET: Admin/Customers
         public ActionResult Index()
         {
-            return View(db.Shops.ToList());
+            var customers = db.Customers.Include(c => c.Account);
+            return View(customers.ToList());
         }
 
-        // GET: Admin/Shops/Details/5
+        // GET: Admin/Customers/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.Shop shop = db.Shops.Find(id);
-            if (shop == null)
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(shop);
+            return View(customer);
         }
 
-        // GET: Admin/Shops/Create
+        // GET: Admin/Customers/Create
         public ActionResult Create()
         {
+            ViewBag.AccountId = new SelectList(db.Accounts, "Id", "LoginName");
             return View();
         }
 
-        // POST: Admin/Shops/Create
+        // POST: Admin/Customers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Address")] Models.Shop shop)
+        public ActionResult Create([Bind(Include = "Id,FullName,Address,Phone,Email,AccountId")] Customer customer)
         {
             if (ModelState.IsValid)
             {
-                db.Shops.Add(shop);
+                db.Customers.Add(customer);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(shop);
+            ViewBag.AccountId = new SelectList(db.Accounts, "Id", "LoginName", customer.AccountId);
+            return View(customer);
         }
 
-        // GET: Admin/Shops/Edit/5
+        // GET: Admin/Customers/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.Shop shop = db.Shops.Find(id);
-            if (shop == null)
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(shop);
+            ViewBag.AccountId = new SelectList(db.Accounts, "Id", "LoginName", customer.AccountId);
+            return View(customer);
         }
 
-        // POST: Admin/Shops/Edit/5
+        // POST: Admin/Customers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Address")] Models.Shop shop)
+        public ActionResult Edit([Bind(Include = "Id,FullName,Address,Phone,Email,AccountId")] Customer customer)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(shop).State = EntityState.Modified;
+                db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(shop);
+            ViewBag.AccountId = new SelectList(db.Accounts, "Id", "LoginName", customer.AccountId);
+            return View(customer);
         }
 
-        // GET: Admin/Shops/Delete/5
+        // GET: Admin/Customers/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.Shop shop = db.Shops.Find(id);
-            if (shop == null)
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(shop);
+            return View(customer);
         }
 
-        // POST: Admin/Shops/Delete/5
+        // POST: Admin/Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Models.Shop shop = db.Shops.Find(id);
-            db.Shops.Remove(shop);
+            Customer customer = db.Customers.Find(id);
+            db.Customers.Remove(customer);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

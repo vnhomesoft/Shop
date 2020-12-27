@@ -10,107 +10,112 @@ using Shop.Models;
 
 namespace Shop.Areas.Admin.Controllers
 {
-    public class ShopsController : Controller
+    public class PricesController : Controller
     {
         private ShopEntities db = new ShopEntities();
 
-        // GET: Admin/Shops
+        // GET: Admin/Prices
         public ActionResult Index()
         {
-            return View(db.Shops.ToList());
+            var prices = db.Prices.Include(p => p.Product);
+            return View(prices.ToList());
         }
 
-        // GET: Admin/Shops/Details/5
+        // GET: Admin/Prices/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.Shop shop = db.Shops.Find(id);
-            if (shop == null)
+            Price price = db.Prices.Find(id);
+            if (price == null)
             {
                 return HttpNotFound();
             }
-            return View(shop);
+            return View(price);
         }
 
-        // GET: Admin/Shops/Create
+        // GET: Admin/Prices/Create
         public ActionResult Create()
         {
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name");
             return View();
         }
 
-        // POST: Admin/Shops/Create
+        // POST: Admin/Prices/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Address")] Models.Shop shop)
+        public ActionResult Create([Bind(Include = "ProductId,Value,ApplyDate")] Price price)
         {
             if (ModelState.IsValid)
             {
-                db.Shops.Add(shop);
+                db.Prices.Add(price);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(shop);
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", price.ProductId);
+            return View(price);
         }
 
-        // GET: Admin/Shops/Edit/5
+        // GET: Admin/Prices/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.Shop shop = db.Shops.Find(id);
-            if (shop == null)
+            Price price = db.Prices.Find(id);
+            if (price == null)
             {
                 return HttpNotFound();
             }
-            return View(shop);
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", price.ProductId);
+            return View(price);
         }
 
-        // POST: Admin/Shops/Edit/5
+        // POST: Admin/Prices/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Address")] Models.Shop shop)
+        public ActionResult Edit([Bind(Include = "ProductId,Value,ApplyDate")] Price price)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(shop).State = EntityState.Modified;
+                db.Entry(price).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(shop);
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", price.ProductId);
+            return View(price);
         }
 
-        // GET: Admin/Shops/Delete/5
+        // GET: Admin/Prices/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.Shop shop = db.Shops.Find(id);
-            if (shop == null)
+            Price price = db.Prices.Find(id);
+            if (price == null)
             {
                 return HttpNotFound();
             }
-            return View(shop);
+            return View(price);
         }
 
-        // POST: Admin/Shops/Delete/5
+        // POST: Admin/Prices/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Models.Shop shop = db.Shops.Find(id);
-            db.Shops.Remove(shop);
+            Price price = db.Prices.Find(id);
+            db.Prices.Remove(price);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
