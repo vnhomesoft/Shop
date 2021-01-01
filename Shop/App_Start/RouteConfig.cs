@@ -13,6 +13,14 @@ namespace Shop
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //// Route for Admin area
+            //routes.MapRoute(
+            //    name: "Admin",
+            //    url: "Admin/{controller}/{action}/{id}",
+            //    defaults: new { controller = "Dashboard", action = "Index"}
+            //).DataTokens["area"] = "Admin";
+
+            //// Route for Public area
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
