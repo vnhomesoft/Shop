@@ -10,7 +10,7 @@ using Shop.Models;
 
 namespace Shop.Areas.Admin.Controllers
 {
-    public class CategoriesController : Controller
+    public class CategoryController : Controller
     {
         private ShopDbContext db = new ShopDbContext();
 
@@ -38,6 +38,7 @@ namespace Shop.Areas.Admin.Controllers
         // GET: Admin/Categories/Create
         public ActionResult Create()
         {
+            ViewBag.Categories = GetCategories();
             return View();
         }
 
@@ -46,7 +47,7 @@ namespace Shop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,DisplayText")] Category category)
+        public ActionResult Create([Bind(Include = "Id,DisplayText,ParentId")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -65,11 +66,13 @@ namespace Shop.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            
+            Category category = db.Categories.Find(id);            
             if (category == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.Categories = GetCategories(category);
             return View(category);
         }
 
@@ -78,8 +81,9 @@ namespace Shop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,DisplayText")] Category category)
+        public ActionResult Edit([Bind(Include = "Id,DisplayText, ParentId")] Category category)
         {
+            ViewBag.Categories = GetCategories(category);
             if (ModelState.IsValid)
             {
                 db.Entry(category).State = EntityState.Modified;
@@ -123,5 +127,18 @@ namespace Shop.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+
+        private IEnumerable<Category> GetCategories(Category current = null)
+		{
+            if(current == null)
+			{
+                return db.Categories.ToList();
+			}
+
+            // Exclude current category and all its children
+            List<Category> categories = db.Categories.ToList();
+            categories.RemoveAll(item => item.Id == current.Id || item.ParentId == current.Id);
+            return categories;
+		}
     }
 }
