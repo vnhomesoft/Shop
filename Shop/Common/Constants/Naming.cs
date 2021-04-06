@@ -12,10 +12,11 @@
 
 	public static class Controllers
 	{
-		public const string CATEGORY = "Category";
-		public const string PRODUCT = "Product";
-		public const string ORDER = "Order";
-		public const string USER = "User";
+		public const string CATEGORIES = "Categories";
+		public const string PRODUCTS = "Products";
+		public const string ORDERS = "Orders";
+		public const string USERS = "Users";
+		public const string ACCOUNT = "Acccount";
 		public const string DASHBOARD = "Dashboard";
 
 		public static class Action

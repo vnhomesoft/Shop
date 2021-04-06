@@ -7,10 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Shop.Models;
+using Shop.Common;
 
 namespace Shop.Areas.Admin.Controllers
 {
-    public class CategoryController : Controller
+    public class CategoriesController : Controller
     {
         private ShopDbContext db = new ShopDbContext();
 
@@ -38,7 +39,7 @@ namespace Shop.Areas.Admin.Controllers
         // GET: Admin/Categories/Create
         public ActionResult Create()
         {
-            ViewBag.Categories = GetCategories();
+            ViewBag.Categories = DataUtils.GetCategories(db);
             return View();
         }
 
@@ -72,7 +73,7 @@ namespace Shop.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Categories = GetCategories(category);
+            ViewBag.Categories = DataUtils.GetCategories(db, category);
             return View(category);
         }
 
@@ -83,7 +84,7 @@ namespace Shop.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,DisplayText, ParentId")] Category category)
         {
-            ViewBag.Categories = GetCategories(category);
+            ViewBag.Categories = DataUtils.GetCategories(db, category);
             if (ModelState.IsValid)
             {
                 db.Entry(category).State = EntityState.Modified;
@@ -128,17 +129,17 @@ namespace Shop.Areas.Admin.Controllers
             base.Dispose(disposing);
         }
 
-        private IEnumerable<Category> GetCategories(Category current = null)
-		{
-            if(current == null)
-			{
-                return db.Categories.ToList();
-			}
+  //      private IEnumerable<Category> GetCategories(Category current = null)
+		//{
+  //          if(current == null)
+		//	{
+  //              return db.Categories.ToList();
+		//	}
 
-            // Exclude current category and all its children
-            List<Category> categories = db.Categories.ToList();
-            categories.RemoveAll(item => item.Id == current.Id || item.ParentId == current.Id);
-            return categories;
-		}
+  //          // Exclude current category and all its children
+  //          List<Category> categories = db.Categories.ToList();
+  //          categories.RemoveAll(item => item.Id == current.Id || item.ParentId == current.Id);
+  //          return categories;
+		//}
     }
 }

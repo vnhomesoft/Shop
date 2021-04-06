@@ -134,10 +134,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Common\Constants\Naming.cs" />
+    <Compile Include="Common\DataUtils.cs" />
+    <Compile Include="Common\ExceptionHandlerFilter.cs" />
+    <Compile Include="Common\MyHelper.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -153,18 +156,33 @@
     <Compile Include="Migrations\202104050948151_AddParentCategory.Designer.cs">
       <DependentUpon>202104050948151_AddParentCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104051614336_AddProductStatusAndFeatureImage.cs" />
+    <Compile Include="Migrations\202104051614336_AddProductStatusAndFeatureImage.Designer.cs">
+      <DependentUpon>202104051614336_AddProductStatusAndFeatureImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104051651443_FixPublishDateName.cs" />
+    <Compile Include="Migrations\202104051651443_FixPublishDateName.Designer.cs">
+      <DependentUpon>202104051651443_FixPublishDateName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104060648218_AddPriceType.cs" />
+    <Compile Include="Migrations\202104060648218_AddPriceType.Designer.cs">
+      <DependentUpon>202104060648218_AddPriceType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Coupon.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Enums\PriceType.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\Price.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Enums\PublishStatus.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\ShopDbContext.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\ViewModels\ProductView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -199,11 +217,11 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
     <Content Include="NLog.config" />
     <Content Include="Areas\Admin\Views\Shared\_Sidebar.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Create.cshtml" />
@@ -211,6 +229,7 @@
     <Content Include="Areas\Admin\Views\Products\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\_PartialProductInput.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -262,6 +281,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104050948151_AddParentCategory.resx">
       <DependentUpon>202104050948151_AddParentCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104051614336_AddProductStatusAndFeatureImage.resx">
+      <DependentUpon>202104051614336_AddProductStatusAndFeatureImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104051651443_FixPublishDateName.resx">
+      <DependentUpon>202104051651443_FixPublishDateName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104060648218_AddPriceType.resx">
+      <DependentUpon>202104060648218_AddPriceType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

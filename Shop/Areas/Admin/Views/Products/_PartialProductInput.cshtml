@@ -1,0 +1,53 @@
+﻿@model Shop.Models.ViewModels.ProductView
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-group">
+	@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+	<div class="col-md-10">
+		@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+	</div>
+</div>
+<div class="form-group">
+	@Html.LabelFor(model => model.FeatureImage, htmlAttributes: new { @class = "control-label col-md-2" })
+	<div class="col-md-10">
+		@Html.TextBoxFor(model => model.UploadFile, new  { @type = "file" })
+		@Html.ValidationMessageFor(model => model.UploadFile, "", new { @class = "text-danger" })
+	</div>
+	<div class="col-md-4">
+		@if (!string.IsNullOrEmpty(Model?.FeatureImage))
+		{
+		<img src="@Server.UrlDecode( Model.FeatureImage)" alt="@Model.Name" class="thumbnail product-image-thumb"/>
+		}
+	</div>
+</div>
+<div class="form-group">
+	@Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
+	<div class="col-md-10">
+		@Html.DropDownList("CategoryId", (SelectList)ViewBag.Categories, new { @class = "form-control" })
+		@Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+	</div>
+</div>
+<div class="form-group">
+	@Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+	<div class="col-md-10">
+		@Html.DropDownListFor(model => model.Status, EnumHelper.GetSelectList(typeof(Shop.Models.PublishStatus)), new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+	</div>
+</div>
+<div class="form-group">
+	@Html.LabelFor(model => model.PublishDate, htmlAttributes: new { @class = "control-label col-md-2" })
+	<div class="col-md-10">
+		@Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.PublishDate, "", new { @class = "text-danger" })
+	</div>
+</div>
+
+<div class="form-group">
+	@Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+	<div class="col-md-10">
+		@Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @type="number" } })
+		@Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+	</div>
+</div>
+

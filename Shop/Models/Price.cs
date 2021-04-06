@@ -1,6 +1,7 @@
 namespace Shop.Models
 {
-    using System;
+	using global::Shop.Models.Enums;
+	using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -17,6 +18,7 @@ namespace Shop.Models
         [Key, Column(Order = 1)]
         public DateTime ApplyDate { get; set; }  // Second part of the PK
 
+        public PriceType Type { get; set; }
 
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
