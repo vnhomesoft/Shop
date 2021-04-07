@@ -29,8 +29,10 @@ namespace Shop
             // Use for admin dashboard
             bundles.Add(new ScriptBundle("~/bundles/adminlte").Include(
                       "~/Scripts/adminlte.min.js"));
-            bundles.Add(new StyleBundle("~/Admin/css").Include(
-                      "~/Content/adminlte.min.css"));
+            bundles.Add(new StyleBundle("~/Admin/css").Include(                     
+                      "~/Content/fontawesome/all.min.css",
+                       "~/Content/adminlte.min.css"
+                      ));
         }
     }
 }
