@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Shop.Models.ViewModels
 {
@@ -34,7 +36,11 @@ namespace Shop.Models.ViewModels
 			product.Name = Name;
 			if (product.Prices.Count > 0)
 			{
-				product.Prices.First().Value = Price;	// TODO: use product price
+				product.Prices.First().Value = Price;   // TODO: use product price
+			}
+			else
+			{
+				product.Prices.Add(new Price { ApplyDate = DateTime.Today, ProductId = product.Id, Type = Enums.PriceType.ProductPrice, Value = Price });
 			}
 			product.PublishDate = PublishDate;
 			product.Status = Status;
@@ -46,16 +52,20 @@ namespace Shop.Models.ViewModels
 
 		public string Name { get; set; }
 
+		[Display(Name = "Category")]
 		public long CategoryId { get; set; }
 
 		public PublishStatus Status { get; set; }
 
+		[Display(Name = "Publish status")]
 		public DateTime PublishDate { get; set; }
 
+		[Display(Name = "Featured image")]
 		public string FeatureImage { get; set; }
 
 		public decimal Price { get; set; }
 
+		[AllowHtml]
 		public string Description { get; set; }
 
 		public HttpPostedFileBase UploadFile { get; set; }

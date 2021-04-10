@@ -2,8 +2,9 @@ namespace Shop.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Account
+	using System.ComponentModel.DataAnnotations;
+
+	public partial class Account
     {
         public Account()
         {
@@ -12,8 +13,13 @@ namespace Shop.Models
         }
     
         public long Id { get; set; }
+        [Required]
         public string LoginName { get; set; }
+        [MinLength(5)]
+        [Required]
         public string Password { get; set; }
+        [Required]
+        [RegularExpression("^\\w+@\\w+\\.\\w+$")]
         public string Email { get; set; }
         public short Locked { get; set; }
         public string ActivationCode { get; set; }

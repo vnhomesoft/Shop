@@ -11,7 +11,7 @@ using Shop.Common;
 
 namespace Shop.Areas.Admin.Controllers
 {
-    public class CategoriesController : Controller
+    public class CategoriesController : BaseController
     {
         private ShopDbContext db = new ShopDbContext();
 
@@ -54,6 +54,7 @@ namespace Shop.Areas.Admin.Controllers
             {
                 db.Categories.Add(category);
                 db.SaveChanges();
+                SetSuccessNotification();
                 return RedirectToAction("Index");
             }
 
@@ -89,6 +90,7 @@ namespace Shop.Areas.Admin.Controllers
             {
                 db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
+                SetSuccessNotification();
                 return RedirectToAction("Index");
             }
             return View(category);
@@ -117,6 +119,7 @@ namespace Shop.Areas.Admin.Controllers
             Category category = db.Categories.Find(id);
             db.Categories.Remove(category);
             db.SaveChanges();
+            SetSuccessNotification();
             return RedirectToAction("Index");
         }
 
@@ -129,17 +132,5 @@ namespace Shop.Areas.Admin.Controllers
             base.Dispose(disposing);
         }
 
-  //      private IEnumerable<Category> GetCategories(Category current = null)
-		//{
-  //          if(current == null)
-		//	{
-  //              return db.Categories.ToList();
-		//	}
-
-  //          // Exclude current category and all its children
-  //          List<Category> categories = db.Categories.ToList();
-  //          categories.RemoveAll(item => item.Id == current.Id || item.ParentId == current.Id);
-  //          return categories;
-		//}
     }
 }

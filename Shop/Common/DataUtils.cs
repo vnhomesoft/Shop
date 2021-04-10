@@ -20,5 +20,13 @@ namespace Shop.Common
 			categories.RemoveAll(item => item.Id == current.Id || item.ParentId == current.Id);
 			return categories;
 		}
+
+		public static IDictionary<string, string> GetRolesList()
+		{
+			return new Dictionary<string, string> {
+				{"admin", "Administrator" },
+				{"user", "Normal User" }
+			};
+		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿@model Shop.Models.ViewModels.ProductView
+﻿@model Shop.Models.Product
 
 @{
     ViewBag.Title = "Details";
@@ -8,26 +8,43 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.DisplayText)
-        </dt>
+	<h4>Product</h4>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Name)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Category.DisplayText)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.Name)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.Category.DisplayText)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Category.DisplayText)
+		</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Prices)
+		</dt>
 
-    </dl>
+		<dd>
+			@Html.DisplayFor(model => model.Prices.First().Value)
+		</dd>
+
+
+		<dt>
+			@Html.DisplayNameFor(model => model.PublishDate)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.PublishDate)
+		</dd>
+
+	</dl>
+	<img src="@Server.UrlDecode(Model.FeatureImage)" style="max-width:200px;" alt="@Model.Name" />
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |

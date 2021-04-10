@@ -15,7 +15,7 @@ using System.Configuration;
 
 namespace Shop.Areas.Admin.Controllers
 {
-    public class ProductsController : Controller
+    public class ProductsController : BaseController
     {
         private ShopDbContext db = new ShopDbContext();
 
@@ -39,7 +39,7 @@ namespace Shop.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             
-            return View(new ProductView(product));
+            return View(product);
         }
 
         // GET: Admin/Products/Create
@@ -64,11 +64,12 @@ namespace Shop.Areas.Admin.Controllers
                 product.FeatureImage = SaveFile(viewModel.UploadFile, product.FeatureImage);
                 db.Products.Add(product);
                 await db.SaveChangesAsync();
+                SetSuccessNotification();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "DisplayText", viewModel.CategoryId);
-            return View(product);
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "DisplayText", viewModel.CategoryId);            
+            return View(viewModel);
         }
 
         // GET: Admin/Products/Edit/5
@@ -103,6 +104,7 @@ namespace Shop.Areas.Admin.Controllers
 
                 db.Entry(product).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+                SetSuccessNotification();
                 return RedirectToAction("Index");
             }
             ViewBag.Categories = new SelectList(db.Categories, "Id", "DisplayText", viewModel.CategoryId);
@@ -132,6 +134,7 @@ namespace Shop.Areas.Admin.Controllers
             Product product = await db.Products.FindAsync(id);
             db.Products.Remove(product);
             await db.SaveChangesAsync();
+            SetSuccessNotification();
             return RedirectToAction("Index");
         }
 
@@ -144,11 +147,18 @@ namespace Shop.Areas.Admin.Controllers
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Replace previous file by new upload file.
+        /// In case there is no upload file, keep previous file if existed.
+        /// </summary>
+        /// <param name="postedFile"></param>
+        /// <param name="previousUrl"></param>
+        /// <returns></returns>
         private string SaveFile(HttpPostedFileBase postedFile, string previousUrl = null)
 		{
             if(postedFile == null)
 			{
-                return null;
+                return !string.IsNullOrEmpty(previousUrl) ? previousUrl : null;
 			}
             string relativePath = ConfigurationManager.AppSettings.Get("shop:uploadsDir:products") ?? "/Uploads/Products";
             string physicFolderPath = Server.MapPath(relativePath);

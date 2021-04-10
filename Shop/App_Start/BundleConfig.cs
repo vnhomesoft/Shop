@@ -33,6 +33,9 @@ namespace Shop
                       "~/Content/fontawesome/all.min.css",
                        "~/Content/adminlte.min.css"
                       ));
+            // Bundle CKeditor
+            bundles.Add(new ScriptBundle("~/bundles/ckeditor").Include(
+                       "~/Scripts/ckeditor/ckeditor.js"));
         }
     }
 }
