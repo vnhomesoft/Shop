@@ -5,9 +5,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>@ViewBag.Title - My ASP.NET Application</title>
 
-	@Styles.Render("~/Admin/css")
-	<!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> --> 
+
+	<!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
 	@*@Styles.Render("~/Content/css")*@
+	@Styles.Render("~/Admin/css")
 	@Scripts.Render("~/bundles/ckeditor")
 	@Scripts.Render("~/bundles/modernizr")
 
@@ -27,10 +28,10 @@
 				</li>
 				<li class="nav-item d-none d-sm-inline-block">
 					<a href="#" class="nav-link">Contact</a>
-				</li> 
+				</li>
 					-->
 			</ul>
-			
+
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
 				<!-- Navbar Search -->
@@ -65,14 +66,14 @@
 						<a href="#" class="dropdown-item">
 							<!-- Message Start -->
 							<div class="media">
-								<img src="~/img/generic_user-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+								<img src="~/Content/img/admin/user.png" alt="User Avatar" class="img-size-50 mr-3 img-circle">
 								<div class="media-body">
 									<h3 class="dropdown-item-title">
-										Brad Diesel
+										@ViewBag.CurrentAccount?.LoginName
 										<span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
 									</h3>
-									<p class="text-sm">Call me whenever you can...</p>
-									<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+									@*<p class="text-sm">Call me whenever you can...</p>
+										<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>*@
 								</div>
 							</div>
 							<!-- Message End -->
@@ -185,10 +186,11 @@
 			<!-- Main content -->
 			<div class="content">
 				<div class="container-fluid">
-					@if(TempData.ContainsKey("Message")){ 
-					<div class="alert alert-success" role="alert">
-						@TempData["Message"]
-					</div>
+					@if (TempData.ContainsKey("Message"))
+					{
+						<div class="alert alert-success" role="alert">
+							@TempData["Message"]
+						</div>
 					}
 					@RenderBody()
 				</div>
@@ -219,8 +221,9 @@
 
 
 	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")
+
 	@Scripts.Render("~/bundles/adminlte")
+	@Scripts.Render("~/bundles/bootstrap")
 	@RenderSection("scripts", required: false)
 </body>
 </html>

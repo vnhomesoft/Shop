@@ -8,9 +8,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Shop.Models;
+using Shop.Common;
 
 namespace Shop.Controllers
 {
+    [Authorize]
+    [CustomActionFilter]
+    [ExceptionHandlerFilter]
     public class OrdersController : Controller
     {
         private ShopDbContext db = new ShopDbContext();

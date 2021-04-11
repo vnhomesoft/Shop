@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Shop.Common.Constants;
+using Shop.Models;
 
 namespace Shop.Areas.Admin.Controllers
 {
@@ -12,7 +13,7 @@ namespace Shop.Areas.Admin.Controllers
 		// TODO: include ID and name of item in message
 		protected void SetSuccessNotification()
 		{
-			string controller = RouteData.GetRequiredString("controller");
+			//string controller = RouteData.GetRequiredString("controller");
 			string action = RouteData.GetRequiredString("action");
 			if("edit" == action?.ToLower())
 			{
@@ -26,6 +27,19 @@ namespace Shop.Areas.Admin.Controllers
 				TempData.Add("Message", "Action is succeed.");
 			}
 
+		}
+
+		protected Account CurrentAccount
+		{
+			get
+			{
+				Account account = Session["shop:user"] as Account;
+				if(account != null)
+				{
+					return account;
+				}
+				throw new InvalidOperationException("Invalid user state");
+			}
 		}
 	}
 }

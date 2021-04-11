@@ -13,6 +13,9 @@ using Shop.Common;
 
 namespace Shop.Areas.Admin.Controllers
 {
+    [Authorize]
+    [CustomActionFilter]
+    [ExceptionHandlerFilter]
     public class UsersController : Controller
     {
         private ShopDbContext db = new ShopDbContext();

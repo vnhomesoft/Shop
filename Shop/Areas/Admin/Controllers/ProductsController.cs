@@ -15,6 +15,9 @@ using System.Configuration;
 
 namespace Shop.Areas.Admin.Controllers
 {
+    [Authorize]
+    [CustomActionFilter]
+    [ExceptionHandlerFilter]
     public class ProductsController : BaseController
     {
         private ShopDbContext db = new ShopDbContext();
