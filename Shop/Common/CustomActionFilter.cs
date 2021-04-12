@@ -10,18 +10,15 @@ namespace Shop.Common
 {
 	public class CustomActionFilter : ActionFilterAttribute
 	{
-		public override void OnActionExecuting(ActionExecutingContext filterContext)
+		public override void OnActionExecuted(ActionExecutedContext filterContext)
 		{
-			base.OnActionExecuting(filterContext);
+			base.OnActionExecuted(filterContext);
 			var controller = filterContext.Controller as Controller;
-			if(controller != null)
+			string actionName = filterContext.ActionDescriptor.ActionName;
+			string controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+			if (controller != null)
 			{
-				controller.ViewBag.CurrentAccount = filterContext.HttpContext.Session["shop:user"] as Account;
-			}
-			if (controller.ViewBag.CurrentAccount == null)
-			{
-				string query = filterContext.HttpContext.Request.QueryString.ToString();
-				controller.Response.Redirect("/Account/Login" + (!string.IsNullOrEmpty(query)? "?"+query : string.Empty), true); // terminate current proccess to prevent error 
+				controller.ViewBag.DebugMessage = string.Format( "Debug message:{0}, {1}", controllerName, actionName);
 			}
 		}
 	}

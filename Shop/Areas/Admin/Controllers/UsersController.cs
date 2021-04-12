@@ -13,7 +13,7 @@ using Shop.Common;
 
 namespace Shop.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     [CustomActionFilter]
     [ExceptionHandlerFilter]
     public class UsersController : Controller
