@@ -5,12 +5,13 @@ namespace Shop.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    
-    /// <summary>
-    /// This is a special class.
-    /// Because name of field is not follows EF convention for PK then we need some configuration
-    /// </summary>
-    public partial class Price
+	using System.Web.Script.Serialization;
+
+	/// <summary>
+	/// This is a special class.
+	/// Because name of field is not follows EF convention for PK then we need some configuration
+	/// </summary>
+	public partial class Price
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None), Column(Order = 0)]
         public long ProductId { get; set; }             // This field is first part of PK, and also a FK
@@ -20,7 +21,8 @@ namespace Shop.Models
 
         public PriceType Type { get; set; }
 
-        [ForeignKey("ProductId")]
+		[ScriptIgnore]
+		[ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
     }
 }

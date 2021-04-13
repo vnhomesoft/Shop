@@ -180,5 +180,7 @@ namespace Shop.Areas.Admin.Controllers
             postedFile.SaveAs(Path.Combine(physicFolderPath, postedFile.FileName));
             return Server.UrlEncode(relativePath + "/" + postedFile.FileName);
 		}
+
+       
     }
 }

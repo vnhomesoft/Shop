@@ -29,3 +29,16 @@
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+@section scripts{
+<script>
+    $(document).ready(function () {
+        $.get("/products/getproducts")
+            .done(function (result) {
+                alert(result);
+            })
+            .fail(function (result) {
+                alert("Error");
+            });
+    });
+</script>
+    }

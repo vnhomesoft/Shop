@@ -4,6 +4,7 @@ namespace Shop.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 	using System.ComponentModel.DataAnnotations.Schema;
+	using System.Web.Script.Serialization;
 
 	public class Product
     {
@@ -38,8 +39,10 @@ namespace Shop.Models
         [Display(Name = "Publish on date")]
         [DisplayFormat(DataFormatString = "yyyy-MM-dd")]
         public DateTime PublishDate { get; set; }
-    
+
+         
         public virtual Category Category { get; set; }
+        [ScriptIgnore]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<Price> Prices { get; set; }
     }

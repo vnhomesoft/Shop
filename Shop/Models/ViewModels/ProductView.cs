@@ -26,6 +26,7 @@ namespace Shop.Models.ViewModels
 			Status = product.Status;
 			PublishDate = product.PublishDate;
 			FeatureImage = product.FeatureImage;
+			Description = product.Description;
 			Price = product.Prices.Where(p => p.Type == Enums.PriceType.ProductPrice && p.ApplyDate <= DateTime.Now)
 				.OrderByDescending(p => p.ApplyDate)
 				.FirstOrDefault()?.Value ?? 0;

@@ -43,6 +43,14 @@
 			@Html.DisplayFor(model => model.PublishDate)
 		</dd>
 
+		<dt>
+			@Html.DisplayNameFor(model => model.Description)
+		</dt>
+
+		<dd>
+			@Html.Raw(Model.Description)
+		</dd>
+
 	</dl>
 	<img src="@Server.UrlDecode(Model.FeatureImage)" style="max-width:200px;" alt="@Model.Name" />
 </div>

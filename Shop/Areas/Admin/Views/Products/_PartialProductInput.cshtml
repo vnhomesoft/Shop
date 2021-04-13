@@ -11,13 +11,13 @@
 <div class="form-group">
 	@Html.LabelFor(model => model.FeatureImage, htmlAttributes: new { @class = "control-label col-md-2" })
 	<div class="col-md-10">
-		@Html.TextBoxFor(model => model.UploadFile, new  { @type = "file" })
+		@Html.TextBoxFor(model => model.UploadFile, new { @type = "file" })
 		@Html.ValidationMessageFor(model => model.UploadFile, "", new { @class = "text-danger" })
 	</div>
 	<div class="col-md-4">
 		@if (!string.IsNullOrEmpty(Model?.FeatureImage))
 		{
-		<img src="@Server.UrlDecode( Model.FeatureImage)" alt="@Model.Name" class="thumbnail product-image-thumb"/>
+			<img src="@Server.UrlDecode( Model.FeatureImage)" alt="@Model.Name" class="thumbnail product-image-thumb" />
 		}
 	</div>
 </div>
@@ -37,13 +37,14 @@
 	</div>
 </div>
 <script>
+	// Add this line for each editor
 	CKEDITOR.replace("Description");
 </script>
 
 <div class="form-group">
 	@Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
 	<div class="col-md-10">
-		@Html.DropDownListFor(model => model.Status, EnumHelper.GetSelectList(typeof(Shop.Models.PublishStatus)), new { @class = "form-control" } )
+		@Html.DropDownListFor(model => model.Status, EnumHelper.GetSelectList(typeof(Shop.Models.PublishStatus)), new { @class = "form-control" })
 		@Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
 	</div>
 </div>
@@ -58,8 +59,15 @@
 <div class="form-group">
 	@Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
 	<div class="col-md-10">
-		@Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @type="number" } })
+		@Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
 		@Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
 	</div>
 </div>
 
+@section scripts{
+	<script>
+		//$(document).load(function () {
+		//	CKEDITOR.replace("Description");
+		//});
+	</script>
+}
