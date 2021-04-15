@@ -17,6 +17,7 @@ namespace Shop.Controllers
             return View(products);
         }
 
+
         public ActionResult Details(int id)
         {
             var product = db.Products.Find(id);

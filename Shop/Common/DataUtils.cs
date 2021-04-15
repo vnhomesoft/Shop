@@ -1,4 +1,5 @@
 ﻿using Shop.Models;
+using Shop.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,15 @@ namespace Shop.Common
 				{"admin", "Administrator" },
 				{"user", "Normal User" }
 			};
+		}
+
+		public static int GetNumberOfCartItems(object collection)
+		{
+			if(!(collection is List<CartItem>))
+			{
+				return 0;
+			}
+			return (collection as List<CartItem>).Count;
 		}
 	}
 }

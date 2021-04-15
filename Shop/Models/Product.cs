@@ -33,11 +33,11 @@ namespace Shop.Models
         [Display(Name = "Featured image")]
         public string FeatureImage { get; set; }
 
-        //TODO: add product quantity
-
         public PublishStatus Status { get; set; } 
+        
         [Display(Name = "Publish on date")]
-        [DisplayFormat(DataFormatString = "yyyy-MM-dd")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", NullDisplayText = "", ApplyFormatInEditMode = true)]
         public DateTime PublishDate { get; set; }
 
          

@@ -225,7 +225,9 @@
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\ShopDbContext.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\ViewModels\CartItem.cs" />
     <Compile Include="Models\ViewModels\LoginView.cs" />
+    <Compile Include="Models\ViewModels\NotificationMessage.cs" />
     <Compile Include="Models\ViewModels\ProductView.cs" />
     <Compile Include="Models\ViewModels\UserAccountView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -785,11 +787,14 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Index_old.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\Checkout.cshtml" />
+    <Content Include="Views\Shared\_Notification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Views\Cart\" />
     <Folder Include="Views\Error\" />
     <Folder Include="Views\Shop\" />
   </ItemGroup>
