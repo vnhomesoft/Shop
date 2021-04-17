@@ -15,7 +15,7 @@ namespace Shop.Common
 			base.OnException(filterContext);
 			if (!filterContext.ExceptionHandled)
 			{
-				logger.Debug(filterContext.Exception, filterContext.Exception.Message ?? "Unknow error has occured.");
+				logger.Error(filterContext.Exception, filterContext.Exception.Message ?? "Unknow error has occured.");
 			}
 		}
 	}

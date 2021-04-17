@@ -10,7 +10,7 @@ using System.Web.Mvc;
 using Shop.Models;
 using Shop.Common;
 
-namespace Shop.Controllers
+namespace Shop.Areas.Admin.Controllers
 {
     [Authorize]
     [CustomActionFilter]

@@ -8,7 +8,6 @@ namespace Shop.Models.ViewModels
 {
 	public class CartItem
 	{
-		[Key]
 		public long ProductId { get; set; }
 		public string ProductName { get; set; }
 		public string ImageUrl { get; set; }

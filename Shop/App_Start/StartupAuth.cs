@@ -22,9 +22,9 @@ namespace Shop.App_Start
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
                 LogoutPath = new PathString("/Account/SignOut"),
-                ExpireTimeSpan = TimeSpan.FromMinutes(5.0)
+                ExpireTimeSpan = TimeSpan.FromMinutes(60)
             });
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+            //app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
             // Uncomment the following lines to enable logging in with third party login providers   
             //app.UseMicrosoftAccountAuthentication(   
             // clientId: "",   
