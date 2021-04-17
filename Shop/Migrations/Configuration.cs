@@ -1,11 +1,13 @@
 namespace Shop.Migrations
 {
-    using System;
-    using System.Data.Entity;
+	using Shop.Models;
+	using System;
+	using System.Collections.Generic;
+	using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Shop.Models.ShopDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ShopDbContext>
     {
         public Configuration()
         {
@@ -13,7 +15,7 @@ namespace Shop.Migrations
             ContextKey = "Shop.Models.ShopDbContext";
         }
 
-        protected override void Seed(Shop.Models.ShopDbContext context)
+        protected override void Seed(ShopDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -27,6 +29,91 @@ namespace Shop.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            // Create administrative user
+            var admin = context.Users.Where(u => u.Account.LoginName == "admin").FirstOrDefault();
+            if(admin != null)
+			{
+                context.Users.Remove(admin);
+			}
+            context.Users.Add(
+                   new User
+				{
+                    Account = new Account
+                    {
+                        LoginName = "admin",
+                        Password = "admin",
+                        Email = "admin@example.net"                        
+					},
+                    Roles = "admin",
+                    DisplayName = "Administrator"                   
+				});
+            context.SaveChanges();
+
+            // Create default categories
+            context.Categories.AddOrUpdate(
+                c => c.Id,
+                new Category {
+                    Id = 1,
+                    DisplayText = "Uncategorized",
+                    ParentId = null
+                });
+            context.SaveChanges();
+
+            // Create default page
+            var posts = new List<Post>
+            {
+                new Post
+                {
+                    Name = "about",
+                    Title = "About",
+                    Content = "<strong>Homesoft is a R&D company</strong>",
+                    PublishDate = DateTime.Now,
+                    Status = PublishStatus.Published
+                },
+                new Post
+                {
+                    Name =  "contact",
+                    Title = "Contact",
+                    Content = "Email: vnhomesoft@gmail.com",
+                    PublishDate = DateTime.Now,
+                    Status = PublishStatus.Published
+				}
+            };
+            posts.ForEach(post =>
+                context.Posts.AddOrUpdate(
+                    p => p.Name,
+                    post
+                )
+            );
+            context.SaveChanges();
+
+            // Create sample products
+            var products = new List<Product>
+            {
+                new Product
+                {
+                    Name = "Product 1",
+                    CategoryId = 1,
+                    Description = "<p>Description of product 1</p>",
+                    FeatureImage = "~/Upload/Product/sample-product-image.png",
+                    Prices = new List<Price>{
+                        new Price{ApplyDate = DateTime.Now, Type = Models.Enums.PriceType.ProductPrice, Value = 100000}
+                    },
+                    Status = PublishStatus.Published
+                },
+                new Product
+                {
+                    Name = "Product 2",
+                    CategoryId = 1,
+                    Description = "<p>Description of product 2</p>",
+                    FeatureImage = "~/Upload/Product/sample-product-image.png",
+                    Prices = new List<Price>{
+                        new Price{ApplyDate = DateTime.Now, Type = Models.Enums.PriceType.ProductPrice, Value = 110000}
+                    },
+                    Status = PublishStatus.Published
+                }
+            };
         }
     }
 }
