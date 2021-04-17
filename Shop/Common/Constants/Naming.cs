@@ -14,6 +14,7 @@
 	{
 		public const string CATEGORIES = "Categories";
 		public const string PRODUCTS = "Products";
+		public const string POSTS = "Posts";
 		public const string ORDERS = "Orders";
 		public const string USERS = "Users";
 		public const string ACCOUNT = "Acccount";

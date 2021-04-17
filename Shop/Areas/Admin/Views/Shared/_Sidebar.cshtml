@@ -5,11 +5,11 @@
 		<div class="image">
 			<img src="~/Content/img/admin/user.png" class="img-circle elevation-2" alt="User Image">
 		</div>
-		<div class="dropdown">		
+		<div class="dropdown">
 			<a id="dropdownMenuButton" href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-left: 10px; margin-top: 5px;"> @Context.GetOwinContext().Authentication.User.Identity.Name</a>
-			<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton" >
+			<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
 				<a class="dropdown-item" href="@Url.Action("SignOut", "Account", new { area = ""})">Sign Out</a>
-				
+
 			</div>
 		</div>
 	</div>
@@ -30,7 +30,7 @@
 	<nav class="mt-2">
 		<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 			<!-- Add icons to the links using the .nav-icon class
-	with font-awesome or any other icon font library -->
+			with font-awesome or any other icon font library -->
 			<li class="nav-item">
 				<a href="#" class="nav-link">
 					<i class="nav-icon fas fa-th"></i>
@@ -109,6 +109,30 @@
 					</li>
 				</ul>
 			</li>
+			<li class="nav-item menu-open">
+				<a href="#" class="nav-link">
+					<i class="nav-icon fas fa-tachometer-alt"></i>
+					<p>
+						Posts
+						<i class="right fas fa-angle-left"></i>
+					</p>
+				</a>
+				<ul class="nav nav-treeview">
+					<li class="nav-item">
+						<a href="@Url.Action("Create",  Controllers.POSTS)" class="nav-link">
+							<i class="far fa-circle nav-icon"></i>
+							<p>Add New</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="@Url.Action("Index", Controllers.POSTS)" class="nav-link">
+							<i class="far fa-circle nav-icon"></i>
+							<p>All Post</p>
+						</a>
+					</li>
+				</ul>
+			</li>
+
 			@if (Context.GetOwinContext().Authentication.User.IsInRole("admin"))
 			{
 				<!-- USERS group-->
@@ -137,7 +161,7 @@
 					</ul>
 				</li>
 			}
-			</ul>
+		</ul>
 	</nav>
 	<!-- /.sidebar-menu -->
 </div>

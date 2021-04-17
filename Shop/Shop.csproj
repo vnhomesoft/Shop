@@ -178,6 +178,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PostsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -210,15 +211,21 @@
     <Compile Include="Migrations\202104090924369_AddUserAndAccountConstraints.Designer.cs">
       <DependentUpon>202104090924369_AddUserAndAccountConstraints.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104160726239_AddPostTable.cs" />
+    <Compile Include="Migrations\202104160726239_AddPostTable.Designer.cs">
+      <DependentUpon>202104160726239_AddPostTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Coupon.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Enums\OrderStatus.cs" />
+    <Compile Include="Models\Enums\PostTypes.cs" />
     <Compile Include="Models\Enums\PriceType.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Price.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Enums\PublishStatus.cs" />
@@ -791,6 +798,12 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\Checkout.cshtml" />
     <Content Include="Views\Shared\_Notification.cshtml" />
+    <Content Include="Areas\Admin\Views\Posts\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Posts\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Posts\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Posts\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Posts\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Posts\_PostInputForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
@@ -821,6 +834,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104090924369_AddUserAndAccountConstraints.resx">
       <DependentUpon>202104090924369_AddUserAndAccountConstraints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104160726239_AddPostTable.resx">
+      <DependentUpon>202104160726239_AddPostTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

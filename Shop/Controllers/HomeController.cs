@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shop.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,8 @@ namespace Shop.Controllers
 {
     public class HomeController : Controller
     {
+        ShopDbContext db = new ShopDbContext();
+
         public ActionResult Index()
         {
             return View();
@@ -15,16 +18,22 @@ namespace Shop.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            var post = db.Posts.Where(p => p.Name == "about").FirstOrDefault();
+            if(post == null)
+			{
+                return HttpNotFound();
+			}
+            return View(post);
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var post = db.Posts.Where(p => p.Name.ToLower() == "contact").FirstOrDefault();
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            return View(post);
         }
     }
 }

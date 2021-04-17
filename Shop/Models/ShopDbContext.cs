@@ -21,8 +21,9 @@ namespace Shop.Models
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Coupon> Coupons { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Post> Posts { get; set; }
 
-		public System.Data.Entity.DbSet<Account> Accounts { get; set; }
+        public System.Data.Entity.DbSet<Account> Accounts { get; set; }
 
 		//protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		//{
