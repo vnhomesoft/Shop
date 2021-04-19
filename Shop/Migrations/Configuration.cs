@@ -34,6 +34,7 @@ namespace Shop.Migrations
             var admin = context.Users.Where(u => u.Account.LoginName == "admin").FirstOrDefault();
             if(admin != null)
 			{
+                context.Accounts.Remove(admin.Account);
                 context.Users.Remove(admin);
 			}
             context.Users.Add(
@@ -100,7 +101,8 @@ namespace Shop.Migrations
                     Prices = new List<Price>{
                         new Price{ApplyDate = DateTime.Now, Type = Models.Enums.PriceType.ProductPrice, Value = 100000}
                     },
-                    Status = PublishStatus.Published
+                    Status = PublishStatus.Published,
+                    PublishDate = DateTime.Now
                 },
                 new Product
                 {
@@ -111,9 +113,13 @@ namespace Shop.Migrations
                     Prices = new List<Price>{
                         new Price{ApplyDate = DateTime.Now, Type = Models.Enums.PriceType.ProductPrice, Value = 110000}
                     },
-                    Status = PublishStatus.Published
+                    Status = PublishStatus.Published,
+                    PublishDate = DateTime.Now
                 }
             };
+            products.ForEach(product =>
+                context.Products.AddOrUpdate(p => p.Name, product));
+            context.SaveChanges();
         }
     }
 }

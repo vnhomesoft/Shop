@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Shop.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
@@ -21,6 +23,10 @@ namespace Shop
 
             // Configuration for OWIN use
             AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Name;
+
+            // Check to migrate database into latest version each time application start
+            var initializer = new MigrateDatabaseToLatestVersion<ShopDbContext, Migrations.Configuration>();
+            Database.SetInitializer(initializer);
         }
     }
 }
