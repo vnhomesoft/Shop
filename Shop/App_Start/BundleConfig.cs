@@ -27,15 +27,16 @@ namespace Shop
                       "~/Content/site.css"));
 
             // Use for admin dashboard
-            bundles.Add(new ScriptBundle("~/bundles/adminlte").Include(
-                      "~/Scripts/adminlte.min.js"));
-            bundles.Add(new StyleBundle("~/Admin/css").Include(                     
-                      "~/Content/fontawesome/all.min.css",
-                       "~/Content/adminlte.min.css"
-                      ));
+            //bundles.Add(new ScriptBundle("~/bundles/adminlte").Include(
+            //          "~/Scripts/adminlte.min.js"));
+            //bundles.Add(new StyleBundle("~/Admin/css").Include(                     
+            //          "~/Content/fontawesome/all.min.css",
+            //           "~/Content/adminlte.min.css"
+                      //));
             // Bundle CKeditor
-            bundles.Add(new ScriptBundle("~/bundles/ckeditor").Include(
-                       "~/Scripts/ckeditor/ckeditor.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/ckeditor").Include(
+            //           "~/Scripts/ckeditor/ckeditor.js"));
+
         }
     }
 }
