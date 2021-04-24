@@ -163,7 +163,7 @@ namespace Shop.Areas.Admin.Controllers
 			{
                 return !string.IsNullOrEmpty(previousUrl) ? previousUrl : null;
 			}
-            string relativePath = ConfigurationManager.AppSettings.Get("shop:uploadsDir:products") ?? "/Uploads/Products";
+            string relativePath = ConfigurationManager.AppSettings.Get("shop:uploadsDir:products") ?? "~/Uploads/Products";
             string physicFolderPath = Server.MapPath(relativePath);
             string previousFilePath = Server.MapPath( Server.UrlDecode(previousUrl));
 

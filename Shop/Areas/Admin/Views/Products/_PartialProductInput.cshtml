@@ -1,4 +1,5 @@
-﻿@model Shop.Models.ViewModels.ProductView
+﻿@using Shop.Common
+@model Shop.Models.ViewModels.ProductView
 
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 <div class="form-group">
@@ -17,7 +18,7 @@
 	<div class="col-md-4">
 		@if (!string.IsNullOrEmpty(Model?.FeatureImage))
 		{
-			<img src="@Server.UrlDecode( Model.FeatureImage)" alt="@Model.Name" class="thumbnail product-image-thumb" />
+			<img src="@Model.FeatureImage.ToProductImageUrl()" alt="@Model.Name" class="thumbnail product-image-thumb" />
 		}
 	</div>
 </div>

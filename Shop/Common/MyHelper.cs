@@ -19,7 +19,7 @@ namespace Shop.Common
 				throw new Exception("Configuration missed: \"shop:host\"");
 			}
 
-			return host + HttpContext.Current.Server.UrlDecode(relativeUrl);
+			return host + HttpContext.Current.Server.UrlDecode(relativeUrl).Remove(0, 1);   // Remove leading '~' character
 		}
 	}
 }
