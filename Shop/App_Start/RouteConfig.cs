@@ -17,11 +17,17 @@ namespace Shop
 			routes.MapRoute(
 				name: "Admin",
 				url: "Admin/{controller}/{action}/{id}",
-				defaults: new { controller = "Dashboard", action = "Index" }
+				defaults: new { controller = "Dashboard", action = "Index", area = "Admin" }
 			).DataTokens["area"] = "Admin";
 
-			//// Route for Public area
-			routes.MapRoute(
+            //// Route for Public area
+            //routes.MapRoute(
+            //    name: "Page",
+            //    url: "{controller}",
+            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+            //    namespaces: new string[] { "Shop.Controllers" }    // prevent ambiguous namespace when trying to access public Products controller
+            //);
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
